@@ -1,0 +1,35 @@
+#include <iostream>
+
+class Calculator {
+public:
+    // Method for adding two integers
+    int add(int a, int b) {
+        return a + b;
+    }
+
+    // Overloaded method for adding three integers
+    int add(int a, int b, int c) {
+        return a + b + c;
+    }
+
+    // Overloaded method for adding two doubles
+    double add(double a, double b) {
+        return a + b;
+    }
+};
+
+int main() {
+    Calculator myCalculator;
+
+    // Example usage of the overloaded methods
+    int sum1 = myCalculator.add(5, 3);
+    int sum2 = myCalculator.add(4, 6, 2);
+    double sum3 = myCalculator.add(3.5, 2.7);
+
+    // Output the results
+    std::cout << "Sum of 5 and 3: " << sum1 << std::endl;
+    std::cout << "Sum of 4, 6, and 2: " << sum2 << std::endl;
+    std::cout << "Sum of 3.5 and 2.7: " << sum3 << std::endl;
+
+    return 0;
+}
