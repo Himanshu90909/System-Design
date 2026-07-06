@@ -1,0 +1,32 @@
+#include <iostream>
+using namespace std;
+
+class Student {
+
+public:
+    int roll;
+    string name;
+    
+    void takeLeave(){
+        cout << "on leave" << endl;
+    }
+    
+    void bunkClass(){
+        cout << "Go out and play: " << endl;
+    }
+};
+
+
+int main() {
+    // Function call
+    Student sid;
+    sid.bunkClass();
+    sid.name = "Himanshu Suthar";
+    cout << sid.name << endl;
+    
+    sid.takeLeave();
+    sid.name = "Himanshu Suthar";
+    cout << sid.name << endl;
+
+    return 0;
+}
