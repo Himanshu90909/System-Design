@@ -1,0 +1,55 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Imagine a baker who is responsible for baking bread. The baker's role is to focus on the task of baking bread, ensuring that the bread is of high quality, properly baked, and meets the bakery's standards.
+
+class BreadBaker{
+public:
+    void bakeBread(){
+        cout<< "Baking high-quality bread..." <<endl;
+    }
+};
+
+class InventoryManager {
+public:
+    void manageInventory() {
+        cout << "Managing inventory.." <<endl;
+    }
+};
+
+class SupplyOrder {
+public:
+    void orderSupplies(){
+        cout << "Ordering supplies..."<<endl;
+    }
+};
+
+class CustomerService{
+public:
+    void serveCustomer(){
+        cout << "Serving customers..." <<endl;
+    }
+};
+
+class BakeryCleaner{
+public:
+    void cleanBakery() {
+        cout << "Cleaning the Bakery.."<< endl;
+    }
+};
+
+int main(){
+    BreadBaker baker;
+    InventoryManager inventoryManager;
+    SupplyOrder supplyOrder;
+    CustomerService customerservice;
+    BakeryCleaner cleaner;
+    
+    baker.bakeBread();
+    inventoryManager.manageInventory();
+    supplyOrder.orderSupplies();
+    cleaner.cleanBakery();
+    
+    return 0;
+}
