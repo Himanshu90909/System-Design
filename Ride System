@@ -1,0 +1,48 @@
+Ride System
+You are designing a ride system:
+
+Ride has a Driver and Car
+Car has an Engine that cannot exist independently
+Driver can drive different cars
+
+class Engine {
+
+}
+
+class Car {
+    private Engine engine;
+
+    public Car() {
+        engine = new Engine();
+    }
+}
+
+class Driver {
+    public void drive(Car car) {
+        System.out.println("Driving the car...");
+    }
+}
+
+class Ride {
+    private Driver driver;
+    private Car car;
+
+    public Ride(Driver driver, Car car) {
+        this.driver = driver;
+        this.car = car;
+    }
+
+    public void startRide() {
+        driver.drive(car);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Driver driver = new Driver();
+        Car car = new Car();
+
+        Ride ride = new Ride(driver, car);
+        ride.startRide();
+    }
+}
