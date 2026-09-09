@@ -1,20 +1,18 @@
-# Codechef Device Control Solution
+# Codechef Library System Solution
 
-This solution completes the provided template using abstraction, inheritance, and polymorphism.
+This solution completes the provided template using encapsulation, association, dependency, and aggregation.
 
-- `Device` is an **abstract class** with private ON/OFF state and abstract `turnOn()` and `turnOff()` methods.
-- `Fan` and `Light` **inherit** from `Device` and provide their own implementations.
-- `DeviceController.operate(Device device)` accepts the common `Device` type and invokes both methods polymorphically.
-- Repeating an invalid operation is safe: turning on an already-on device or turning off an already-off device does not change state or print another message.
-- No `instanceof` or device-specific type checking is used.
+- `Book` keeps its ID, issued state, and current member private. Controlled methods update the issue state.
+- `Member` is associated with borrowed books and depends on `Book` objects passed to `issueBook()` and `returnBook()`.
+- `Library` aggregates a collection of books. Books are created independently and can exist without the library.
+- A book cannot be issued while it is already issued.
+- Issuing and returning update both sides of the relationship: the book records its member, and the member records its borrowed book.
 
 Expected output:
 
 ```text
-Fan ON
-Fan OFF
-Light ON
-Light OFF
+Book B1 issued to M1
+Book B1 returned
 ```
 
 Run it with:
