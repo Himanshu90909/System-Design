@@ -1,17 +1,20 @@
-# Codechef Online Food Ordering Solution
+# Codechef Device Control Solution
 
-This solution completes the provided template without changing its required class and method structure.
+This solution completes the provided template using abstraction, inheritance, and polymorphism.
 
-- `User` uses **encapsulation** with private `id` and `orders` fields. It maintains the `User → Order` association through `addOrder()`.
-- `Order` stores a `User` reference, representing the order's association with its user.
-- `Order` stores a copied list of `FoodItem` objects, representing **aggregation** because food items can exist independently of an order.
-- `Order.getTotalCost()` dynamically computes the sum of `price × quantity` for every item.
-- `OrderService.createOrder()` generates IDs such as `ORD1`, assigns the order to the user, and returns the created order.
+- `Device` is an **abstract class** with private ON/OFF state and abstract `turnOn()` and `turnOff()` methods.
+- `Fan` and `Light` **inherit** from `Device` and provide their own implementations.
+- `DeviceController.operate(Device device)` accepts the common `Device` type and invokes both methods polymorphically.
+- Repeating an invalid operation is safe: turning on an already-on device or turning off an already-off device does not change state or print another message.
+- No `instanceof` or device-specific type checking is used.
 
-For the sample input, the output is:
+Expected output:
 
 ```text
-250.0
+Fan ON
+Fan OFF
+Light ON
+Light OFF
 ```
 
 Run it with:

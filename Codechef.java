@@ -1,140 +1,106 @@
-import java.util.*;
-
-// ================= USER =================
+// ================= DEVICE =================
 /*
-Encapsulation:
+Abstraction:
 
-- id is private
-- user can have multiple orders (association)
+- Device is abstract
+- Device maintains ON/OFF state
+- turnOn() and turnOff() are abstract operations
 */
-class User {
-    private final String id;
-    private final List<Order> orders;
+abstract class Device {
+    private boolean on;
 
-    public User(String id) {
-        this.id = id;
-        this.orders = new ArrayList<>();
+    public abstract void turnOn();
+
+    public abstract void turnOff();
+
+    protected final boolean isOn() {
+        return on;
     }
 
-    public String getId() {
-        return id;
+    protected final void setOn() {
+        on = true;
     }
 
-    public List<Order> getOrders() {
-        return Collections.unmodifiableList(orders);
-    }
-
-    public void addOrder(Order order) {
-        orders.add(order);
+    protected final void setOff() {
+        on = false;
     }
 }
 
-// ================= FOOD ITEM =================
+
+// ================= FAN =================
 /*
-Encapsulation:
+Inheritance:
 
-- name, price, quantity are private
+- Fan extends Device
+- Prints "Fan ON" and "Fan OFF"
 */
-class FoodItem {
-    private final String name;
-    private final double price;
-    private final int quantity;
-
-    public FoodItem(String name, double price, int quantity) {
-        this.name = name;
-        this.price = price;
-        this.quantity = quantity;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-}
-
-// ================= ORDER =================
-/*
-Association:
-
-- Order HAS-A User
-
-Aggregation:
-
-- Order HAS-A List<FoodItem>
-
-Also:
-
-- implement total cost calculation
-*/
-class Order {
-    private final String id;
-    private final User user;
-    private final List<FoodItem> items;
-
-    public Order(String id, User user, List<FoodItem> items) {
-        this.id = id;
-        this.user = user;
-        this.items = new ArrayList<>(items);
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public List<FoodItem> getItems() {
-        return Collections.unmodifiableList(items);
-    }
-
-    public double getTotalCost() {
-        double total = 0.0;
-        for (FoodItem item : items) {
-            total += item.getPrice() * item.getQuantity();
+class Fan extends Device {
+    @Override
+    public void turnOn() {
+        if (isOn()) {
+            return;
         }
-        return total;
+        setOn();
+        System.out.println("Fan ON");
+    }
+
+    @Override
+    public void turnOff() {
+        if (!isOn()) {
+            return;
+        }
+        setOff();
+        System.out.println("Fan OFF");
     }
 }
 
-// ================= SERVICE =================
-class OrderService {
-    private int counter = 1;
 
-    /*
-    Create order:
-    - generate id ORD1, ORD2...
-    - assign to user
-    */
-    public Order createOrder(User user, List<FoodItem> items) {
-        String orderId = "ORD" + counter++;
-        Order order = new Order(orderId, user, items);
-        user.addOrder(order);
-        return order;
+// ================= LIGHT =================
+/*
+- Light extends Device
+- Prints "Light ON" and "Light OFF"
+*/
+class Light extends Device {
+    @Override
+    public void turnOn() {
+        if (isOn()) {
+            return;
+        }
+        setOn();
+        System.out.println("Light ON");
+    }
+
+    @Override
+    public void turnOff() {
+        if (!isOn()) {
+            return;
+        }
+        setOff();
+        System.out.println("Light OFF");
     }
 }
+
+
+// ================= CONTROLLER =================
+class DeviceController {
+
+    void operate(Device device) {
+        device.turnOn();
+        device.turnOff();
+    }
+}
+
 
 // ================= MAIN =================
 public class Codechef {
     public static void main(String[] args) {
 
-        User user = new User("U1");
+        DeviceController controller = new DeviceController();
 
-        List<FoodItem> items = new ArrayList<>();
-        items.add(new FoodItem("Pizza", 100, 2));
-        items.add(new FoodItem("Burger", 50, 1));
+        Device fan = new Fan();
+        Device light = new Light();
 
-        OrderService service = new OrderService();
-        Order order = service.createOrder(user, items);
-
-        System.out.println(order.getTotalCost());
+        controller.operate(fan);
+        controller.operate(light);
     }
 }
