@@ -73,6 +73,9 @@ class Member {
     }
 
     public void issueBook(Book book) {
+        if (book == null) {
+            return;
+        }
         if (book.issueTo(this)) {
             borrowedBooks.add(book);
             System.out.println("Book " + book.getId() + " issued to " + id);
@@ -80,6 +83,9 @@ class Member {
     }
 
     public void returnBook(Book book) {
+        if (book == null) {
+            return;
+        }
         if (book.releaseFrom(this)) {
             borrowedBooks.remove(book);
             System.out.println("Book " + book.getId() + " returned");

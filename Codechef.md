@@ -7,6 +7,7 @@ This solution completes the provided template using encapsulation, association, 
 - `Library` aggregates a collection of books. Books are created independently and can exist without the library.
 - A book cannot be issued while it is already issued.
 - Issuing and returning update both sides of the relationship: the book records its member, and the member records its borrowed book.
+- `issueBook(null)` and `returnBook(null)` are safely ignored, so null input does not crash the program or change any state.
 
 Expected output:
 
