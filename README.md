@@ -10,5 +10,6 @@ C++ examples covering object-oriented programming and software design concepts.
 - [Parking Lot System](ParkingLotSystem.md) — Aggregation, association, and separated pricing logic.
 - [Food Ordering System](FoodOrderingSystem.md) — Encapsulation, user-order association, food-item aggregation, and dynamic totals.
 - [Codechef Food Ordering Solution](Codechef.md) — Completed template with `User`, `FoodItem`, `Order`, and `OrderService`.
+- [Device Control System](DeviceControlSystem.md) — Abstraction, inheritance, polymorphism, and safe device state handling.
 - [E-commerce](E-commerce) — A basic shopping-cart example.
 - [Ride System](Ride%20System) — A ride-booking example.
