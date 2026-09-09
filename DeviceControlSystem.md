@@ -4,11 +4,11 @@ This implementation demonstrates **abstraction**, **inheritance**, **polymorphis
 
 ## Design
 
-- `Device` is an abstract base class that declares `turnOn()` and `turnOff()`. It privately stores the ON/OFF state.
-- `Fan` and `Light` inherit from `Device` and provide their own implementations of both operations.
-- `DeviceController.operate(Device device)` works with the base type and calls `turnOn()` and `turnOff()` without knowing the concrete device type. Java dispatches each call to the correct subclass implementation at runtime.
+- `ManagedDevice` is an abstract base class that declares `turnOn()` and `turnOff()`. It privately stores the ON/OFF state.
+- `ManagedFan` and `ManagedLight` inherit from `ManagedDevice` and provide their own implementations of both operations.
+- `ManagedDeviceController.operate(ManagedDevice device)` works with the base type and calls `turnOn()` and `turnOff()` without knowing the concrete device type. Java dispatches each call to the correct subclass implementation at runtime.
 - Each subclass checks the current state before changing it. Turning on an already-on device or turning off an already-off device has no effect.
-- A new device can extend `Device` and implement the two methods without changing `DeviceController`. No `instanceof` or type checking is used.
+- A new device can extend `ManagedDevice` and implement the two methods without changing `ManagedDeviceController`. No `instanceof` or type checking is used.
 
 ## Expected behavior
 

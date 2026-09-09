@@ -1,4 +1,4 @@
-abstract class Device {
+abstract class ManagedDevice {
     private boolean on;
 
     public abstract void turnOn();
@@ -18,7 +18,7 @@ abstract class Device {
     }
 }
 
-class Fan extends Device {
+class ManagedFan extends ManagedDevice {
     @Override
     public void turnOn() {
         if (isOn()) {
@@ -38,7 +38,7 @@ class Fan extends Device {
     }
 }
 
-class Light extends Device {
+class ManagedLight extends ManagedDevice {
     @Override
     public void turnOn() {
         if (isOn()) {
@@ -58,8 +58,8 @@ class Light extends Device {
     }
 }
 
-class DeviceController {
-    public void operate(Device device) {
+class ManagedDeviceController {
+    public void operate(ManagedDevice device) {
         device.turnOn();
         device.turnOff();
     }
@@ -67,10 +67,10 @@ class DeviceController {
 
 public class DeviceControlSystem {
     public static void main(String[] args) {
-        DeviceController controller = new DeviceController();
+        ManagedDeviceController controller = new ManagedDeviceController();
 
-        Device fan = new Fan();
-        Device light = new Light();
+        ManagedDevice fan = new ManagedFan();
+        ManagedDevice light = new ManagedLight();
 
         controller.operate(fan);
         controller.operate(light);
