@@ -63,7 +63,8 @@ class ParkingFeeCalculator {
 }
 
 class ParkingLot {
-    // Composition: the lot creates and manages its parking spots.
+    // Aggregation: the lot manages a collection of parking spots, while a
+    // parking spot can conceptually exist independently of the lot.
     private final List<ParkingSpot> spots = new ArrayList<>();
     private final ParkingFeeCalculator feeCalculator;
 

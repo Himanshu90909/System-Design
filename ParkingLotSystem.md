@@ -2,7 +2,7 @@
 
 ## Relationship types
 
-- **`ParkingLot → ParkingSpot`: Composition**. The parking lot creates and manages its parking spots. The spots are parts of that lot and their lifecycle is controlled by it.
+- **`ParkingLot → ParkingSpot`: Aggregation**. The parking lot contains and manages parking spots, but a parking spot can exist independently of a particular parking lot.
 - **`Vehicle → ParkingSpot`: Association**. A vehicle is assigned to a parking spot temporarily. The vehicle and spot can exist independently, and the assignment changes when the vehicle exits.
 
 ## Pricing logic

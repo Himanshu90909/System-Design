@@ -7,6 +7,6 @@ C++ examples covering object-oriented programming and software design concepts.
 - [Online Order System](OrderSystem.md) — Single Responsibility Principle, dependency inversion, and service relationships.
 - [Payment System](PaymentSystem.md) — Abstraction, runtime polymorphism, and the Open/Closed Principle.
 - [Library System](LibrarySystem.md) — Aggregation, association, dependency, and object lifecycles.
-- [Parking Lot System](ParkingLotSystem.md) — Composition, association, and separated pricing logic.
+- [Parking Lot System](ParkingLotSystem.md) — Aggregation, association, and separated pricing logic.
 - [E-commerce](E-commerce) — A basic shopping-cart example.
 - [Ride System](Ride%20System) — A ride-booking example.
