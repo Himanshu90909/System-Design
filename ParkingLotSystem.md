@@ -7,7 +7,7 @@
 
 ## Pricing logic
 
-A dedicated **`ParkingFeeCalculator`** should handle pricing logic because fee calculation is a separate responsibility from parking-space management. This follows the **Single Responsibility Principle** and allows pricing rules to change without modifying `ParkingLot`.
+A dedicated **`ParkingFeeCalculator`** should handle pricing logic because separating pricing from parking-space management improves **separation of concerns and maintainability**. Pricing rules can change without modifying `ParkingLot`, making both classes easier to understand, test, and maintain.
 
 ## Code design
 

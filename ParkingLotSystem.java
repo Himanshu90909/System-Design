@@ -48,6 +48,8 @@ class ParkingSpot {
     }
 }
 
+// Pricing is isolated from parking management for better separation of
+// concerns and maintainability.
 class ParkingFeeCalculator {
     private final double hourlyRate;
 
