@@ -79,7 +79,7 @@ public:
         std::lock_guard<std::mutex> lock(mutex_);
         if (profiles_.find(profileId) != profiles_.end()) throw std::invalid_argument("profile already exists");
         const auto key = profileId;
-        profiles_.emplace(key, Profile{std::move(profileId), std::move(name)});
+        profiles_.emplace(key, Profile{std::move(profileId), std::move(name), {}, {}, {}});
     }
 
     void publish(Content item) {
