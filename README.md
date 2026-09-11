@@ -16,3 +16,4 @@ C++ examples covering object-oriented programming and software design concepts.
 - [URL Shortener System](URLShortenerSystem.md) — A runnable C++17 implementation of short-code generation, aliases, redirects, expiration, disabling, and analytics.
 - [URL Shortener Design](URLShortenerDesign.md) — HLD, capacity estimates, API contract, data model, scalability, reliability, and security decisions.
 - [Restaurant Management System](RestaurantManagementSystem.md) — Restaurant discovery, menu management, ordering, payments, delivery, tracking, and scalable microservice design.
+- [BookMyShow Booking System](BookMyShowDesign.md) — High-concurrency movie ticket booking with FIFO seat holds, payment confirmation, theatre integration, and QR tickets.
