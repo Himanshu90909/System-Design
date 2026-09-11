@@ -17,3 +17,4 @@ C++ examples covering object-oriented programming and software design concepts.
 - [URL Shortener Design](URLShortenerDesign.md) — HLD, capacity estimates, API contract, data model, scalability, reliability, and security decisions.
 - [Restaurant Management System](RestaurantManagementSystem.md) — Restaurant discovery, menu management, ordering, payments, delivery, tracking, and scalable microservice design.
 - [BookMyShow Booking System](BookMyShowDesign.md) — High-concurrency movie ticket booking with FIFO seat holds, payment confirmation, theatre integration, and QR tickets.
+- [Netflix Streaming System](NetflixStreamingDesign.md) — Global video-on-demand architecture with adaptive streaming, CDN delivery, profiles, playback progress, and recommendations.
