@@ -13,3 +13,5 @@ C++ examples covering object-oriented programming and software design concepts.
 - [Device Control System](DeviceControlSystem.md) — Abstraction, inheritance, polymorphism, and safe device state handling.
 - [E-commerce](E-commerce) — A basic shopping-cart example.
 - [Ride System](Ride%20System) — A ride-booking example.
+- [URL Shortener System](URLShortenerSystem.md) — A runnable C++17 implementation of short-code generation, aliases, redirects, expiration, disabling, and analytics.
+- [URL Shortener Design](URLShortenerDesign.md) — HLD, capacity estimates, API contract, data model, scalability, reliability, and security decisions.
