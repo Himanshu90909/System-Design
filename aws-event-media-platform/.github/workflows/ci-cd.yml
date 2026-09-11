@@ -1,0 +1,53 @@
+name: AWS Media Platform CI/CD
+
+on:
+  push:
+    branches: [main]
+    paths: ['aws-event-media-platform/**']
+  pull_request:
+    paths: ['aws-event-media-platform/**']
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: aws-event-media-platform
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Validate SAM template
+        uses: aws-actions/setup-sam@v2
+      - run: sam validate --lint
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: test-and-build
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    environment: production
+    defaults:
+      run:
+        working-directory: aws-event-media-platform
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/setup-sam@v2
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ vars.AWS_REGION }}
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+      - name: Build
+        run: sam build --use-container
+      - name: Deploy
+        run: sam deploy --stack-name aws-event-media-platform --region "${{ vars.AWS_REGION }}" --resolve-s3 --capabilities CAPABILITY_IAM --no-confirm-changeset --no-fail-on-empty-changeset

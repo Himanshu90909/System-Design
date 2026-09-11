@@ -20,3 +20,4 @@ C++ examples covering object-oriented programming and software design concepts.
 - [Netflix Streaming System](NetflixStreamingDesign.md) — Global video-on-demand architecture with adaptive streaming, CDN delivery, profiles, playback progress, and recommendations.
 - [Uber Dispatch System](UberDispatchDesign.md) — Geospatial driver tracking, ETA-aware matching, ride state transitions, payments, and real-time dispatch architecture.
 - [Twitter Social Platform](TwitterSocialDesign.md) — Snowflake IDs, follows, hybrid timeline fan-out, engagement, search, trends, and notifications.
+- [AWS Event-Driven Media Platform](aws-event-media-platform/README.md) — Real AWS SAM project using DynamoDB, Lambda, API Gateway, SQS, S3, and GitHub Actions CI/CD.

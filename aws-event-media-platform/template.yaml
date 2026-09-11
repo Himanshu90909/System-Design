@@ -1,0 +1,127 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Event-driven media ingestion platform using AWS managed services.
+
+Globals:
+  Function:
+    Runtime: python3.12
+    Timeout: 15
+    MemorySize: 256
+    Environment:
+      Variables:
+        MEDIA_TABLE: !Ref MediaJobsTable
+        MEDIA_QUEUE_URL: !Ref MediaJobQueue
+        MEDIA_BUCKET: !Ref MediaBucket
+
+Resources:
+  MediaApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: prod
+      TracingEnabled: true
+
+  MediaJobsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: jobId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: jobId
+          KeyType: HASH
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      SSESpecification:
+        SSEEnabled: true
+
+  MediaBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      VersioningConfiguration:
+        Status: Enabled
+
+  MediaJobQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      VisibilityTimeout: 90
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt MediaJobDlq.Arn
+        maxReceiveCount: 3
+
+  MediaJobDlq:
+    Type: AWS::SQS::Queue
+
+  IngestFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/
+      Handler: ingest.handler.handler
+      Events:
+        CreateJob:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MediaApi
+            Path: /jobs
+            Method: post
+      Policies:
+        - DynamoDBWritePolicy:
+            TableName: !Ref MediaJobsTable
+        - SQSSendMessagePolicy:
+            QueueName: !GetAtt MediaJobQueue.QueueName
+
+  StatusFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/
+      Handler: status.handler.handler
+      Events:
+        GetJob:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MediaApi
+            Path: /jobs/{jobId}
+            Method: get
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref MediaJobsTable
+
+  WorkerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/
+      Handler: worker.handler.handler
+      Timeout: 60
+      Events:
+        MediaQueue:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt MediaJobQueue.Arn
+            BatchSize: 10
+            FunctionResponseTypes:
+              - ReportBatchItemFailures
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref MediaJobsTable
+        - S3ReadPolicy:
+            BucketName: !Ref MediaBucket
+        - S3WritePolicy:
+            BucketName: !Ref MediaBucket
+
+Outputs:
+  ApiUrl:
+    Description: Media job API URL
+    Value: !Sub https://${MediaApi}.execute-api.${AWS::Region}.amazonaws.com/prod
+  BucketName:
+    Value: !Ref MediaBucket
+  TableName:
+    Value: !Ref MediaJobsTable
